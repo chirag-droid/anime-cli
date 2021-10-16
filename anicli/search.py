@@ -1,6 +1,7 @@
 from typing import List
 import requests
 from bs4 import BeautifulSoup
+import re
 
 from anicli import mirror, Anime
 
@@ -24,3 +25,9 @@ def get_embed_video(episode_url: str) -> str:
     soup = BeautifulSoup(r.content, features="html5lib")
     link = soup.find("a", {"href": "#", "rel": "100"})
     return f'https:{link["data-video"]}'
+
+def get_video_url(embed_url: str) -> str:
+    r = requests.get(embed_url)
+    link = re.search("\s*sources.*", r.text).group()
+    link = re.search("https:.*(m3u8)|(mp4)", link).group()
+    return link

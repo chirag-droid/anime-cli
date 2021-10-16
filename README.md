@@ -3,11 +3,12 @@
 A CLI for streaming, downloading anime shows.
 The shows data is indexed through [GogoAnime](https://gogoanime.pe).
 
-> Currently only supports streaming to browser, more features coming soon.
-
 https://user-images.githubusercontent.com/81347541/137595104-0c0418e9-71b8-4c45-b507-78892cca961c.mp4
 
 ### Installation
+It's recommended to stream episodes using a video player (no ads)
+Currently only mpv is supported.
+
 You can install anicli from pip
 
  using
@@ -29,7 +30,7 @@ I recently found out about [ani-cli](https://github.com/pystardust/ani-cli), but
 
 ### TODO
 - [x] Stream on browser
-- [ ] Stream to video players like VLC, MPV
-- [ ] Ability to download the shows
+- [ ] Make streaming on browsers ad free
+- [x] Stream to video player like MPV
+- [ ] Ability to download the shows as mp4
 - [ ] Support for multiple mirrors
-- [ ] ~~Support for multiple sites~~
