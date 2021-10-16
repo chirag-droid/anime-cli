@@ -3,8 +3,12 @@
 A CLI for streaming, downloading anime shows.
 The shows data is indexed through [GogoAnime](https://gogoanime.pe).
 
+https://user-images.githubusercontent.com/81347541/137595104-0c0418e9-71b8-4c45-b507-78892cca961c.mp4
+
 ### Installation
-You can install anicli from pip using
+You can install anicli from pip
+
+ using
 ```
 pip install anicli
 ```
