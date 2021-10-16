@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "anicli"
-version = "0.1.0"
+version = "0.2.0"
 description = "A python based anime cli, search, download watch animes. (Works on Windows too)"
 authors = ["Chirag Singla <chirag.singla.pi@gmail.com>"]
 license = "MIT"
