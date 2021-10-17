@@ -1,4 +1,4 @@
-## AniCli
+## Anime-cli
 
 A CLI for streaming, downloading anime shows.
 The shows data is indexed through [GogoAnime](https://gogoanime.pe).
@@ -9,20 +9,18 @@ https://user-images.githubusercontent.com/81347541/137595104-0c0418e9-71b8-4c45-
 It's recommended to stream episodes using a video player (no ads)
 Currently only mpv is supported.
 
-You can install anicli from pip
+You can install anime-cli from pip using
+```
+pip install anime-cli
+```
+Then run using `python -m anime_cli` or simply `anime-cli`
 
- using
+If you want to help develop `anime-cli`. It is recommended that you clone the repo using and then install the dependencies
 ```
-pip install anicli
-```
-Then run using `python -m anicli` or simply `anicli`
-
-If you want to help develop `anicli`. It is recommended that you clone the repo using and then install the dependencies
-```
-git clone https://github.com/chirag-droid/anicli.git
+git clone https://github.com/chirag-droid/anime-cli.git
 poetry install
 ```
-and then to run, `poetry run anicli`
+and then to run, `poetry run anime-cli`
 
 ### Motivation
 

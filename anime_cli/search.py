@@ -3,7 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-from anicli import mirror, Anime
+from . import mirror
+from .anime import Anime
 
 def search_anime(keyword: str) -> List[Anime]:
     r = requests.get(f"{mirror}/search.html?keyword={keyword}")

@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "anicli"
+name = "anime-cli"
 version = "0.2.0"
 description = "A python based anime cli, search, download watch animes. (Works on Windows too)"
 authors = ["Chirag Singla <chirag.singla.pi@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/chirag-droid/anicli"
-repository = "https://github.com/chirag-droid/anicli"
+homepage = "https://github.com/chirag-droid/anime-cli"
+repository = "https://github.com/chirag-droid/anime-cli"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
@@ -17,7 +17,7 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-anicli = 'anicli.__main__:main'
+anime-cli = 'anime_cli.__main__:main'
 
 [tool.poetry.dependencies]
 python = "^3.9"

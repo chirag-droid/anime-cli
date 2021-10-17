@@ -1,6 +1,3 @@
-video_player = "mpv"
-mirror = "https://gogoanime.pe"
-
 class Anime:
     def __init__(self, title, id) -> None:
         self.title = title

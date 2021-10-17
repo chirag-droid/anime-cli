@@ -3,8 +3,9 @@ import subprocess
 import webbrowser
 from InquirerPy import inquirer
 
-from anicli import Anime, video_player
-from anicli.search import *
+from . import video_player
+from .anime import Anime
+from .search import *
 
 def anime_prompt() -> Anime:
     raw_anime: str = inquirer.text(
