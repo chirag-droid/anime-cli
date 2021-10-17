@@ -3,6 +3,8 @@
 A CLI for streaming, downloading anime shows.
 The shows data is indexed through [GogoAnime](https://gogoanime.pe).
 
+Please install [mpv video-player](https://mpv.io/installation/) for better experience and no ads.
+
 https://user-images.githubusercontent.com/81347541/137595104-0c0418e9-71b8-4c45-b507-78892cca961c.mp4
 
 ### Installation
