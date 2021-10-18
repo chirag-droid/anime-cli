@@ -37,6 +37,3 @@ class Prompts:
             filter=lambda episode: self.searchApi.get_embed_video(anime, int(episode)),
             validate=lambda episode: 1 <= int(episode) <= episodes,
         ).execute()
-
-
-
