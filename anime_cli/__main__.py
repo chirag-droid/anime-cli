@@ -1,114 +1,70 @@
 import subprocess as sp
+import threading
 import webbrowser
-
 from InquirerPy import inquirer
 
-from . import video_player
-from .anime import Anime
-from .search import (get_embed_video, get_episode_link, get_episodes_count,
-                     get_video_url, search_anime)
+from anime_cli.prompts import Prompts
+from anime_cli.proxy_server import proxyServer
+from anime_cli.search import SearchApi
+from anime_cli.search.gogoanime import GogoAnime
+
+def run_server(searchApi: SearchApi, serverAddress):
+    server = proxyServer(searchApi.get_headers(), serverAddress)
+    server.serve_forever()
 
 
-def anime_prompt() -> Anime:
-    """
-    Prompts the user for the keyword then runs a search on the keyword
-    And then prompts the user again from the search results and return the Anime
-    """
-    # Prompt the user for anime keyword
-    keyword: str = inquirer.text(
-        message="What anime would you like to watch?"
-    ).execute()
+def prompt_episode(searchApi: SearchApi):
+    prompts = Prompts(searchApi)
 
-    # Search for the animes using the keyword
-    animes = search_anime(keyword)
-    # Prompt the user to choose from one of the animes
-    return inquirer.select(
-        message=f"Found {len(animes)} results for {keyword}", choices=animes
-    ).execute()
-
-
-def episode_prompt(anime: Anime) -> str:
-    """
-    Prompts the user for the episode number to watch
-    """
-    # Get the total episodes count for the anime
-    episodes = get_episodes_count(anime)
-    # prompt the user to choose from 1 to total number of episodes
-    return inquirer.text(
-        message=f"Choose from 1-{episodes} episodes:",
-        filter=lambda episode: get_episode_link(anime, int(episode)),
-        validate=lambda episode: 1 <= int(episode) <= episodes,
-    ).execute()
-
-
-# A dict of actions the user can perform
-actions = {
-    "Stream on browser (Not recommended)": 0,
-    "Stream on a video player (Recommended)": 1,
-    "Download the video (TODO)": 2,
-}
-
-
-def action_prompt():
-    """
-    Prompt the user to select between the action
-    he wants to do whether to stream or download
-    """
-    return inquirer.select(
-        message="What do you want to do with the episode", choices=list(actions.keys())
-    ).execute()
-
-
-def execute_action(action: str, embed_video):
-    """
-    Execute action takes the url where the video for
-    the show is embedded and performs action based on user response
-    """
-    action = actions[action]
-
-    # Open the embedded video directly (which can contain ads)
-    if action == 0:
-        return webbrowser.open(embed_video)
-
-    # If user wants to download or stream the video
-    # get the direct url to the video
-    video_url = get_video_url(embed_video)
-
-    # Open the video url directly to a video url
-    if action == 1:
-        print("It might take some time for your video player to open.")
-        sp.Popen(
-            [video_player, f"--http-header-fields=Referer: {embed_video}", video_url]
-        )
-        return
-
-    if action == 2:
-        print("Not implemented yet")
-        return
-
-
-def continue_prompt(anime: Anime) -> str:
-    """
-    Prompts the user whether he want to exit from the program
-    """
-    return inquirer.select(
-        message=f"Currently playing {anime.title}...", choices=["exit"]
-    ).execute()
-
+    # Prompt the user for anime
+    anime = prompts.anime_prompt()
+    # Prompt the user for episode
+    return prompts.episode_prompt(anime)
 
 def main():
-    anime = anime_prompt()
-    episode = episode_prompt(anime)
-    action = action_prompt()
+    # TODO: Ability to select which search api, mirror to use
+    searchApi = GogoAnime(mirror="pe")
+    # A list of actions the user can perform
+    embed_url = prompt_episode(searchApi)
+    actions = [
+        "Stream on browser (Not recommended)",
+        "Stream on a video player (Recommended)"
+    ]
 
-    embed_video = get_embed_video(episode)
-    execute_action(action, embed_video)
+    # Prompt the user for which action to do
+    # download or stream
+    action = inquirer.select(
+        message="What would you like to do for me?",
+        choices=actions,
+        filter=lambda action: actions.index(action),
+    ).execute()
+    
+    video_player = inquirer.text(
+        message="Which video player would you like to use to stream?",
+        default="mpv"
+    ).execute()
 
-    running = True
-    while running:
-        if continue_prompt(anime) == "exit":
-            running = False
+    # Directly stream the embedded url maycontain ad
+    if action == 0:
+        webbrowser.open(embed_url)
+        return
+    
+    # Get the direct link to the video
+    video_url = searchApi.get_video_url(embed_url)
 
+    # Start the proxy server
+    serverAddress = ("localhost", 8081)
+    print(f"Starting proxy server on {serverAddress}")
+    server = threading.Thread(target=run_server, args=(searchApi, serverAddress,))
+    server.start()
+
+    # Change the video url to use the proxy
+    video_url = f"http://{serverAddress[0]}:{serverAddress[1]}/{video_url}"
+
+    if action == 1:
+        # Stream to the video player
+        sp.Popen([video_player, video_url])
+        return
 
 if __name__ == "__main__":
     main()
