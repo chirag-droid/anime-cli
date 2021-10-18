@@ -33,7 +33,7 @@ and then to run, `poetry run anime-cli`
 In termux install python using `pkg install python`
 Follow the same steps as above for downloading `anime-cli`
 
-When asked to enter the video-url change it to `xdg-open` which will automatically open `mpv-player`.
+When asked to enter the video-player change it to `xdg-open` which will automatically open `mpv-player`.
 
 ### Motivation
 
