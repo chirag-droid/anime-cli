@@ -1,14 +1,15 @@
 import subprocess as sp
+import sys
 import threading
 import webbrowser
-
-from InquirerPy import inquirer
 from typing import List
 
+from InquirerPy import inquirer
+
+from anime_cli.anime import Anime
 from anime_cli.proxy_server import proxyServer
 from anime_cli.search import SearchApi
 from anime_cli.search.gogoanime import GogoAnime
-from anime_cli.anime import Anime
 
 
 def run_server(searchApi: SearchApi, serverAddress):
@@ -20,6 +21,7 @@ def run_server(searchApi: SearchApi, serverAddress):
     """
     server = proxyServer(searchApi.get_headers(), serverAddress)
     server.serve_forever()
+    server.server_close()
 
 
 def anime_prompt(searchApi: SearchApi) -> Anime:
@@ -30,7 +32,7 @@ def anime_prompt(searchApi: SearchApi) -> Anime:
 
     Args:
         searchApi: The search api to use to search for animes
-    
+
     Returns:
         The Anime the user selected
     """
@@ -44,9 +46,9 @@ def anime_prompt(searchApi: SearchApi) -> Anime:
 
     # Prompt the user to choose from one of the animes
     return inquirer.select(
-        message=f"Found {len(animes)} results for {keyword}",
-        choices=animes
+        message=f"Found {len(animes)} results for {keyword}", choices=animes
     ).execute()
+
 
 def episode_prompt(searchApi: SearchApi, anime: Anime) -> str:
     """prompts the user for the episode number to watch
@@ -54,7 +56,7 @@ def episode_prompt(searchApi: SearchApi, anime: Anime) -> str:
     Args:
         searchApi: the search api to use
         anime: The anime whose episodes we want the user to enter
-    
+
     Returns:
         returns the link to the episode page
     """
@@ -70,12 +72,13 @@ def episode_prompt(searchApi: SearchApi, anime: Anime) -> str:
         validate=lambda episode: 1 <= int(episode) <= episodes,
     ).execute()
 
+
 def action_prompt(actions: List[str]) -> int:
     """Prompts the user for the action to execute
 
     Args:
         actions: The list containing the available actions
-    
+
     Returns:
         The index of the action user chose from the actions
     """
@@ -85,6 +88,7 @@ def action_prompt(actions: List[str]) -> int:
         filter=lambda action: actions.index(action),
     ).execute()
 
+
 def video_player_prompt() -> str:
     """Prompt the user for the video player to use
 
@@ -93,9 +97,9 @@ def video_player_prompt() -> str:
     """
     # TODO: validate whether the video player exists
     return inquirer.text(
-        message="Which video player would you like to use to stream?",
-        default="mpv"
+        message="Which video player would you like to use to stream?", default="mpv"
     ).execute()
+
 
 def main():
     # TODO: Ability to select which search api, mirror to use
@@ -133,6 +137,7 @@ def main():
             searchApi,
             serverAddress,
         ),
+        daemon=True,
     )
     server.start()
 
@@ -141,8 +146,21 @@ def main():
 
     if action == 1:
         # Stream to the video player
+        print("It may take some time to open the video player. Be Patient :)")
         sp.Popen([video_player, video_url])
-        return
+
+    while True:
+        try:
+            choice = inquirer.select(
+                message="Note: Exitting will stop the proxy server too",
+                choices=["exit"],
+            ).execute()
+            if choice == "exit":
+                print("Bye!")
+                sys.exit()
+        except KeyboardInterrupt:
+            print("Bye!")
+            sys.exit()
 
 
 if __name__ == "__main__":
