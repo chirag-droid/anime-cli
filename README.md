@@ -5,7 +5,7 @@ The shows data is indexed through [GogoAnime](https://gogoanime.pe).
 
 Please install [mpv video-player](https://mpv.io/installation/) for better experience and no ads.
 
-Version 0.3.1+ works on android/Smart TV's see usage instruction below
+Version 0.3.1+ works on android/Smart TV's see [usage instructions](#usage-android) below
 
 https://user-images.githubusercontent.com/81347541/137595104-0c0418e9-71b8-4c45-b507-78892cca961c.mp4
 
@@ -33,7 +33,7 @@ and then to run, `poetry run anime-cli`
 In termux install python using `pkg install python`
 Follow the same steps as above for downloading `anime-cli`
 
-When asked to enter the video-url change it to `xdg-open` which will automatically open `mpv-player`.
+When asked to enter the video-player change it to `xdg-open` which will automatically open `mpv-player`.
 
 ### Motivation
 
