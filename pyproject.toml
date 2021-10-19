@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "anime-cli"
-version = "0.3.1"
+version = "0.3.2"
 description = "A python based anime cli, search, download watch animes. (Works on Windows too)"
 authors = ["Chirag Singla <chirag.singla.pi@gmail.com>"]
 license = "MIT"
