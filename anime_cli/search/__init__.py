@@ -9,7 +9,7 @@ from anime_cli.anime import Anime
 
 class SearchApi(metaclass=ABCMeta):
     def __init__(self, mirror: str):
-        self.url = f"https://gogoanime.{mirror}"
+        self.url = f"https://example.{mirror}"
 
     def get_soup(self, location: str) -> BeautifulSoup:
         """Gets soup of a page

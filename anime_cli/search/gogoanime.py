@@ -9,7 +9,7 @@ from anime_cli.search import SearchApi
 
 class GogoAnime(SearchApi):
     def __init__(self, mirror: str):
-        super().__init__(mirror)
+        self.url = f"https://gogoanime.{mirror}"
 
     @staticmethod
     def get_headers() -> dict[str, str]:
