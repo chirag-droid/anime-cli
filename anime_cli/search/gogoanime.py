@@ -14,7 +14,7 @@ class GogoAnime(SearchApi):
 
     @staticmethod
     def get_headers() -> dict[str, str]:
-        return {"Referer": "https://goload.one/"}
+        return {"Referer": "https://gogoplay1.com/"}
 
     def search_anime(self, keyword: str) -> List[Anime]:
         # Get and parse the html from the site
@@ -50,7 +50,7 @@ class GogoAnime(SearchApi):
         the page where the video is embedded
         """
         # Get the page where the video is embedded
-        r = requests.get(embed_url)
+        r = requests.get(embed_url, headers=self.request_headers)
 
         # Search for the link to the video and return it
         link = re.search(r"\s*sources.*", r.text).group()
