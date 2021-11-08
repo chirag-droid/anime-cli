@@ -10,6 +10,9 @@ from anime_cli.anime import Anime
 class SearchApi(metaclass=ABCMeta):
     def __init__(self, mirror: str):
         self.url = f"https://example.{mirror}"
+        self.request_headers = {
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 Edg/95.0.1020.44"
+        }
 
     def get_soup(self, location: str) -> BeautifulSoup:
         """Gets soup of a page
@@ -24,7 +27,7 @@ class SearchApi(metaclass=ABCMeta):
             `BeautifulSoup` object by parsing the html
 
         """
-        r = requests.get(f"{self.url}/{location}")
+        r = requests.get(f"{self.url}/{location}", headers=self.request_headers)
         return BeautifulSoup(r.content, features="html5lib")
 
     @abstractstaticmethod
