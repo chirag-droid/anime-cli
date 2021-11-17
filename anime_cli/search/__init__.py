@@ -8,11 +8,15 @@ from anime_cli.anime import Anime
 
 
 class SearchApi(metaclass=ABCMeta):
-    def __init__(self, mirror: str):
+    def __init__(self, mirror: str, display_name = "example"):
         self.url = f"https://example.{mirror}"
         self.request_headers = {
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 Edg/95.0.1020.44"
         }
+        self.display_name = display_name
+
+    def __str__(self) -> str:
+        return f"{self.display_name}"
 
     def get_soup(self, location: str) -> BeautifulSoup:
         """Gets soup of a page

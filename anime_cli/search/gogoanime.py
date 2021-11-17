@@ -11,6 +11,7 @@ class GogoAnime(SearchApi):
     def __init__(self, mirror: str):
         super().__init__(mirror)
         self.url = f"https://gogoanime.{mirror}"
+        self.display_name = f"GoGoAnime ({mirror})"
 
     @staticmethod
     def get_headers() -> Dict[str, str]:

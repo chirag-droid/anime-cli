@@ -24,6 +24,21 @@ def run_server(searchApi: SearchApi, serverAddress):
     server.server_close()
 
 
+def provider_prompt(searchApis: List[SearchApi]) -> SearchApi:
+    """prompts the user for the searchApi they want to use
+
+    Args:
+        searchApis: A list of search apis to use to search for animes
+
+    Returns:
+        The searchApi the user selected
+    """
+    return inquirer.select(
+        message="What searchApi do you want to use?",
+        choices=searchApis,
+    ).execute()
+
+
 def anime_prompt(searchApi: SearchApi) -> Anime:
     """prompts the user for the keyword and then the anime
     The function first prompts the user for the keyword to enter
@@ -102,8 +117,13 @@ def video_player_prompt() -> str:
 
 
 def main():
-    # TODO: Ability to select which search api, mirror to use
-    searchApi = GogoAnime(mirror="pe")
+    # A list of searchApis
+    searchApis = [
+        GogoAnime(mirror="pe"),
+        GogoAnime(mirror="wiki")
+    ]
+    # Prompt the user for searchApi
+    searchApi = provider_prompt(searchApis)
 
     # Prompt the user for anime
     anime = anime_prompt(searchApi)
@@ -117,12 +137,14 @@ def main():
     ]
     # Prompt the user for the action to perform
     action = action_prompt(actions)
-    video_player = video_player_prompt()
 
     # Directly stream the embedded url maycontain ad
     if action == 0:
         webbrowser.open(embed_url)
         return
+
+    # Prompt the user for a video player
+    video_player = video_player_prompt()
 
     # If user doesn't want to directly stream
     # Get the direct link to the video
