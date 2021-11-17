@@ -20,7 +20,7 @@ classifiers = [
 anime-cli = 'anime_cli.__main__:main'
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8.9"
 inquirerpy = "^0.3.0"
 bs4 = "^0.0.1"
 requests = "^2.26.0"

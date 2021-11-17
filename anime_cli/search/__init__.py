@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod, abstractstaticmethod
-from typing import List
+from typing import List, Dict
 
 import requests
 from bs4 import BeautifulSoup
@@ -31,7 +31,7 @@ class SearchApi(metaclass=ABCMeta):
         return BeautifulSoup(r.content, features="html5lib")
 
     @abstractstaticmethod
-    def get_headers() -> dict[str, str]:
+    def get_headers() -> Dict[str, str]:
         """Headers to set while quering anything from the site
 
         Returns:

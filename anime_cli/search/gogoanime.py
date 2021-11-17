@@ -1,5 +1,5 @@
 import re
-from typing import List
+from typing import List, Dict
 
 import requests
 
@@ -13,7 +13,7 @@ class GogoAnime(SearchApi):
         self.url = f"https://gogoanime.{mirror}"
 
     @staticmethod
-    def get_headers() -> dict[str, str]:
+    def get_headers() -> Dict[str, str]:
         return {"Referer": "https://gogoplay1.com/"}
 
     def search_anime(self, keyword: str) -> List[Anime]:
