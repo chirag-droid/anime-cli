@@ -71,7 +71,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "inquirerpy"
-version = "0.3.0"
+version = "0.3.1"
 description = "Python port of Inquirer.js (A collection of common interactive command-line user interfaces)"
 category = "main"
 optional = false
@@ -199,8 +199,8 @@ idna = [
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
 ]
 inquirerpy = [
-    {file = "InquirerPy-0.3.0-py3-none-any.whl", hash = "sha256:8849da1e2dfa4b1d576a9cd9b158ad0755d7fc6883eb0cf839b6a2fc6b1a10fb"},
-    {file = "InquirerPy-0.3.0.tar.gz", hash = "sha256:3f45515dfb58c590759df91ae9534f9391f241480cc535e7e134fb3c3bd3d269"},
+    {file = "InquirerPy-0.3.1-py3-none-any.whl", hash = "sha256:73b73f446031227bc7914c4ffad4f1d86ace2fe5494bb89897dd3930cb9b0949"},
+    {file = "InquirerPy-0.3.1.tar.gz", hash = "sha256:82995b728fa4cdac29bc6118d9da02e2f7f61f7b93ab430ca8ff40397ed8290b"},
 ]
 pfzy = [
     {file = "pfzy-0.3.3-py3-none-any.whl", hash = "sha256:33682ed1929c5ff85c0c57e3b3cfa5c355063138be3560a1797378cf08fb05a2"},
