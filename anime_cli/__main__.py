@@ -129,20 +129,20 @@ def main():
     video_url = searchApi.get_video_url(embed_url)
 
     # Start the proxy server
-    serverAddress = ("localhost", 8081)
-    print(f"Starting proxy server on {serverAddress}")
-    server = threading.Thread(
-        target=run_server,
-        args=(
-            searchApi,
-            serverAddress,
-        ),
-        daemon=True,
-    )
-    server.start()
+    #serverAddress = ("localhost", 8081)
+    #print(f"Starting proxy server on {serverAddress}")
+    #server = threading.Thread(
+    #    target=run_server,
+    #    args=(
+    #        searchApi,
+    #        serverAddress,
+    #    ),
+    #    daemon=True,
+    #)
+    #server.start()
 
     # Change the video url to use the proxy
-    video_url = f"http://{serverAddress[0]}:{serverAddress[1]}/{video_url}"
+    #video_url = f"http://{serverAddress[0]}:{serverAddress[1]}/{video_url}"
 
     if action == 1:
         # Stream to the video player

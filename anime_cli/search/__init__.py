@@ -14,7 +14,7 @@ class SearchApi(metaclass=ABCMeta):
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 Edg/95.0.1020.44"
         }
 
-    def get_soup(self, location: str) -> BeautifulSoup:
+    def get_soup(self,url: str, location: str) -> BeautifulSoup:
         """Gets soup of a page
         The get_soup function takes in the location of
         the page and the gets the html from it
@@ -27,7 +27,7 @@ class SearchApi(metaclass=ABCMeta):
             `BeautifulSoup` object by parsing the html
 
         """
-        r = requests.get(f"{self.url}/{location}", headers=self.request_headers)
+        r = requests.get(f"{url}/{location}", headers=self.request_headers)
         return BeautifulSoup(r.content, features="html5lib")
 
     @abstractstaticmethod
