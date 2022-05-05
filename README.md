@@ -1,3 +1,5 @@
+This project is now no longer maintained. Use this now [chirag-droid/animeflix](https://github.com/chirag-droid/animeflix). If someone does want to use this project let me know.
+
 ## Anime-cli
 
 A CLI for streaming, downloading anime shows.
